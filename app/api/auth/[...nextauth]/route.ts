@@ -44,12 +44,30 @@ export const authOptions: NextAuthOptions = {
                     name: user.name,
                     email: user.email,
                     image: user.image,
+                    role: user.role || 'user',
                 };
             }
         })
     ],
     session: {
         strategy: "jwt",
+    },
+    callbacks: {
+        async jwt({ token, user, trigger, session }) {
+            if (user) {
+                token.role = (user as any).role || 'user';
+            }
+            if (trigger === "update" && session?.name) {
+                token.name = session.name;
+            }
+            return token;
+        },
+        async session({ session, token }) {
+            if (session.user) {
+                (session.user as any).role = token.role;
+            }
+            return session;
+        },
     },
     secret: process.env.NEXTAUTH_SECRET,
     pages: {
