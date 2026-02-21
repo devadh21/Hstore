@@ -46,17 +46,15 @@ export default function AccountDetails() {
 
             <form onSubmit={handleSubmit} className="space-y-8">
                 <div className="flex flex-col md:flex-row gap-8 items-center md:items-start">
-                    <div className="relative group cursor-pointer">
-                        <div className="w-32 h-32 rounded-full overflow-hidden border-2 border-primary/30 group-hover:border-primary transition-colors">
-                            <img
-                                src={formData.image || 'https://api.dicebear.com/7.x/avataaars/svg?seed=user'}
-                                alt="Profile"
-                                className="w-full h-full object-cover"
-                            />
+                    <div className="relative group ">
+                        <div className="w-32 h-32 rounded-full bg-black/40 flex items-center justify-center border-2 border-primary overflow-hidden shadow-[0_0_30px_rgba(var(--primary-rgb),0.2)]">
+                            {formData.image ? (
+                                <img src={formData.image} alt="Profile" className="w-full h-full object-cover" />
+                            ) : (
+                                <User className="w-16 h-16 text-primary" />
+                            )}
                         </div>
-                        <div className="absolute inset-0 flex items-center justify-center bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity rounded-full">
-                            <Camera className="w-6 h-6 text-white" />
-                        </div>
+
                     </div>
 
                     <div className="flex-1 w-full space-y-6">
